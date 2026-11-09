@@ -73,12 +73,12 @@ function fakeStore(rows: Record<string, string>): PageDeviceStore & { rows: Map<
   }
 }
 
-const { publishPageLocaleCatalogSource } = await import('./locale-catalog-imports.web')
+const { startPageLocaleCatalogs } = await import('./page-locale-catalog-source')
 const i18n = await import('./mobile-i18n')
 
 // Module state outlives a test, so each test uses its own locale and publishes its own source.
 function openPage(client: ReturnType<typeof fakeClient>, store: PageDeviceStore): void {
-  publishPageLocaleCatalogSource({ client, store })
+  startPageLocaleCatalogs({ client, store })
 }
 
 // Microtasks, then one macrotask, which is when the store write runs.
